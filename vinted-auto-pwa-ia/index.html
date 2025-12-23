@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#0b5fff" />
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <title>vinted auto – démo</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="logo">va</div>
+      <div>
+        <h1>vinted auto</h1>
+        <p class="sub">démo pwa (iphone) · photos → annonce</p>
+      </div>
+    </div>
+    <button id="installTip" class="ghost" type="button" title="Astuce d'installation">installer</button>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>1) ajoute 5+ photos</h2>
+      <p class="muted">Astuce : prends 1 photo face, 1 dos, 1 étiquette taille/compo, 1 logo, 1 défaut éventuel.</p>
+
+      <div class="row">
+        <label class="btn">
+          choisir des photos
+          <input id="photos" type="file" accept="image/*" multiple />
+        </label>
+        <button id="clearPhotos" class="ghost" type="button">vider</button>
+      </div>
+
+      <div id="thumbs" class="thumbs" aria-live="polite"></div>
+      <div class="muted" id="count"></div>
+    </section>
+
+    <section class="card">
+      <h2>2) infos rapides</h2>
+
+      <div class="grid">
+        <label>marque
+          <input id="brand" placeholder="ex: lacoste" autocomplete="off">
+        </label>
+        <label>catégorie
+          <input id="category" placeholder="ex: pull, polo, veste..." autocomplete="off">
+        </label>
+        <label>taille
+          <input id="size" placeholder="ex: l / xl / 42..." autocomplete="off">
+        </label>
+        <label>couleur
+          <input id="color" placeholder="ex: bleu marine" autocomplete="off">
+        </label>
+        <label>matière (optionnel)
+          <input id="material" placeholder="ex: 100% coton" autocomplete="off">
+        </label>
+        <label>état
+          <select id="condition">
+            <option value="très bon état">très bon état</option>
+            <option value="bon état">bon état</option>
+            <option value="état correct">état correct</option>
+            <option value="fortement usé">fortement usé</option>
+          </select>
+        </label>
+
+        <div id="mannequinWrap" class="mannequin hidden">
+          <div class="row between">
+            <div><span class="badge">ia</span> photo mannequin</div>
+            <a id="downloadMannequin" href="#" download="mannequin.png">télécharger</a>
+          </div>
+          <img id="mannequinImg" alt="photo mannequin (sans visage)">
+        </div>
+
+        <div id="aiNotes" class="muted small"></div>
+      </div>
+
+      <label class="full">défauts / remarques (optionnel)
+        <textarea id="defects" placeholder="ex: léger boulochage, petite tache, trou 5 mm..." rows="3"></textarea>
+      </label>
+
+      
+      <details class="settings">
+        <summary>⚙️ mode ia (optionnel)</summary>
+        <p class="muted small">Si tu as déployé le backend, active le mode IA et colle l’URL de l’API. Sinon, la démo “sans IA” marche quand même.</p>
+
+        <label>url de l’api
+          <input id="apiUrl" type="text" placeholder="ex: https://ton-backend.onrender.com">
+        </label>
+
+        <div class="row">
+          <label class="chip"><input id="useAI" type="checkbox"> utiliser l’ia</label>
+          <label class="chip"><input id="wantMannequin" type="checkbox"> photo mannequin</label>
+          <button id="testApi" class="ghost" type="button">tester</button>
+        </div>
+
+        <div id="apiStatus" class="muted small"></div>
+      </details>
+
+      <div class="row">
+        <button id="generate" class="primary" type="button">générer l’annonce</button>
+        <button id="copyAll" class="ghost" type="button" disabled>copier</button>
+      </div>
+
+      <p class="muted small">ℹ️ Sans backend, l’app génère une annonce “démo”. Avec backend, elle analyse les photos, détecte des défauts, estime un prix et peut générer une photo mannequin.
+      analyse automatique des photos. Elle te montre le flux et le format (titre en minuscules + hashtags en fin).</p>
+    </section>
+
+    <section class="card">
+      <h2>3) résultat</h2>
+      <div class="out">
+        <label>titre (vinted)
+          <input id="outTitle" readonly>
+        </label>
+        <label>description
+          <textarea id="outDesc" readonly rows="10"></textarea>
+        </label>
+        <label>prix suggéré (à la louche)
+          <input id="outPrice" readonly>
+        </label>
+
+        <div id="mannequinWrap" class="mannequin hidden">
+          <div class="row between">
+            <div><span class="badge">ia</span> photo mannequin</div>
+            <a id="downloadMannequin" href="#" download="mannequin.png">télécharger</a>
+          </div>
+          <img id="mannequinImg" alt="photo mannequin (sans visage)">
+        </div>
+
+        <div id="aiNotes" class="muted small"></div>
+      </div>
+    </section>
+
+    <footer class="muted small">
+      <p><strong>astuce :</strong> pour activer l’IA, déploie le backend (Node) et colle son URL dans “mode ia”.</p>
+    </footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
